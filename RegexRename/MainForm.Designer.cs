@@ -17,6 +17,7 @@ namespace RegexRename
 
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             txtFolderPath = new TextBox();
             btnBrowse = new Button();
             txtRegexPattern = new TextBox();
@@ -158,9 +159,10 @@ namespace RegexRename
             Controls.Add(panelReplacement);
             Controls.Add(panelRegexPattern);
             Controls.Add(panelFolderPath);
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "MainForm";
             Padding = new Padding(3);
-            Text = "RegexRename";
+            Text = "RegexRename     - Icons by https://icons8.com -";
             Resize += MainForm_Resize;
             panelFolderPath.ResumeLayout(false);
             panelFolderPath.PerformLayout();
