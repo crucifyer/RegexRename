@@ -73,6 +73,7 @@ namespace RegexRename
                 if (regex == null || match?.Success == true)
                 {
                     var newName = regex == null ? fileName : regex.Replace(fileName, txtReplacement.Text);
+                    if (fileName == newName) continue;
                     var item = lvFiles.Items.Add(fileName);
                     item.SubItems.Add(newName);
 
