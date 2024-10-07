@@ -72,33 +72,49 @@ namespace RegexRename
                 var match = regex?.Match(fileName);
                 if (regex == null || match?.Success == true)
                 {
-                    var newName = regex == null ? fileName : regex.Replace(fileName, txtReplacement.Text);
+                    var newName = regex == null ? "" : regex.Replace(fileName, txtReplacement.Text);
                     if (fileName == newName) continue;
+
                     var item = lvFiles.Items.Add(fileName);
                     item.SubItems.Add(newName);
+                    if (newName == "") continue;
 
                     if (newNames.ContainsKey(newName))
                     {
-                        newNames[newName]++;
-                        item.BackColor = Color.LightYellow;
-                        hasWarnings = true;
-
-                        for (int i = 0; i < lvFiles.Items.Count - 1; i++)
-                        {
-                            if (lvFiles.Items[i].SubItems[1].Text == newName)
-                            {
-                                lvFiles.Items[i].BackColor = Color.LightYellow;
-                            }
-                        }
+                        newNames[newName] ++;
                     }
                     else
                     {
                         newNames[newName] = 1;
                     }
+                }
+            }
 
-                    if (match?.Success == true)
+            foreach (ListViewItem item in lvFiles.Items)
+            {
+                var newName = item.SubItems[1].Text;
+                if (newName == "") continue;
+
+                if (newNames.TryGetValue(newName, out int count) && count > 1)
+                {
+                    item.BackColor = Color.LightYellow;
+                    hasWarnings = true;
+                } else {
+                    item.BackColor = Color.LightGreen;
+                }
+            }
+
+            foreach (var file in files)
+            {
+                var originalName = Path.GetFileName(file);
+                
+                if (newNames.ContainsKey(originalName))
+                {
+                    var item = lvFiles.Items.Cast<ListViewItem>().FirstOrDefault(i => i.SubItems[1].Text == originalName);
+                    if (item != null)
                     {
-                        item.BackColor = Color.LightGreen;
+                        item.BackColor = Color.LightCoral;
+                        hasWarnings = true;
                     }
                 }
             }
