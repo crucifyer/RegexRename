@@ -54,7 +54,12 @@ namespace RegexRename
         {
             lvFiles.Items.Clear();
             btnRename.Enabled = false;
-            if (!Directory.Exists(txtFolderPath.Text)) return;
+            if (!Directory.Exists(txtFolderPath.Text))
+            {
+                txtFolderPath.BackColor = Color.LightPink;
+                return;
+            }
+            txtFolderPath.BackColor = SystemColors.Window;
 
             var files = Directory.GetFiles(txtFolderPath.Text);
             var regex = string.IsNullOrEmpty(txtRegexPattern.Text) ? null : new Regex(txtRegexPattern.Text);
