@@ -62,7 +62,7 @@ namespace RegexRename
             txtFolderPath.BackColor = SystemColors.Window;
 
             var files = Directory.GetFiles(txtFolderPath.Text);
-            var regex = string.IsNullOrEmpty(txtRegexPattern.Text) ? null : new Regex(txtRegexPattern.Text);
+            var regex = string.IsNullOrEmpty(txtRegexPattern.Text) ? null : new Regex(txtRegexPattern.Text, ignoreCaseCheckBox.Checked ? RegexOptions.IgnoreCase : RegexOptions.None);
             var newNames = new Dictionary<string, int>();
             bool hasWarnings = false;
 
@@ -81,7 +81,7 @@ namespace RegexRename
 
                     if (newNames.ContainsKey(newName))
                     {
-                        newNames[newName] ++;
+                        newNames[newName]++;
                     }
                     else
                     {
@@ -99,7 +99,9 @@ namespace RegexRename
                 {
                     item.BackColor = Color.LightYellow;
                     hasWarnings = true;
-                } else {
+                }
+                else
+                {
                     item.BackColor = Color.LightGreen;
                 }
             }
@@ -107,7 +109,7 @@ namespace RegexRename
             foreach (var file in files)
             {
                 var originalName = Path.GetFileName(file);
-                
+
                 if (newNames.ContainsKey(originalName))
                 {
                     var item = lvFiles.Items.Cast<ListViewItem>().FirstOrDefault(i => i.SubItems[1].Text == originalName);
@@ -144,6 +146,11 @@ namespace RegexRename
             int newWidth = (lvFiles.Width - SystemInformation.VerticalScrollBarArrowHeight) >> 1;
             lvFiles.Columns[0].Width = newWidth;
             lvFiles.Columns[1].Width = newWidth;
+        }
+
+        private void ignoreCaseCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdateFileList();
         }
     }
 }

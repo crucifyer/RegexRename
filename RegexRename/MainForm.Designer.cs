@@ -28,6 +28,7 @@ namespace RegexRename
             columnNewFileName = new ColumnHeader();
             panelFolderPath = new Panel();
             panelRegexPattern = new Panel();
+            ignoreCaseCheckBox = new CheckBox();
             panelReplacement = new Panel();
             panelLvFiles = new Panel();
             panelFolderPath.SuspendLayout();
@@ -59,11 +60,11 @@ namespace RegexRename
             // 
             // txtRegexPattern
             // 
-            txtRegexPattern.Dock = DockStyle.Top;
+            txtRegexPattern.Dock = DockStyle.Fill;
             txtRegexPattern.Location = new Point(0, 3);
             txtRegexPattern.Name = "txtRegexPattern";
             txtRegexPattern.PlaceholderText = "Regular Expression Pattern";
-            txtRegexPattern.Size = new Size(794, 23);
+            txtRegexPattern.Size = new Size(709, 23);
             txtRegexPattern.TabIndex = 0;
             txtRegexPattern.TextChanged += TxtRegexPattern_TextChanged;
             // 
@@ -122,12 +123,25 @@ namespace RegexRename
             // panelRegexPattern
             // 
             panelRegexPattern.Controls.Add(txtRegexPattern);
+            panelRegexPattern.Controls.Add(ignoreCaseCheckBox);
             panelRegexPattern.Dock = DockStyle.Top;
             panelRegexPattern.Location = new Point(3, 26);
             panelRegexPattern.Name = "panelRegexPattern";
             panelRegexPattern.Padding = new Padding(0, 3, 0, 0);
             panelRegexPattern.Size = new Size(794, 26);
             panelRegexPattern.TabIndex = 2;
+            // 
+            // ignoreCaseCheckBox
+            // 
+            ignoreCaseCheckBox.AutoSize = true;
+            ignoreCaseCheckBox.Dock = DockStyle.Right;
+            ignoreCaseCheckBox.Location = new Point(709, 3);
+            ignoreCaseCheckBox.Name = "ignoreCaseCheckBox";
+            ignoreCaseCheckBox.Size = new Size(85, 23);
+            ignoreCaseCheckBox.TabIndex = 1;
+            ignoreCaseCheckBox.Text = "IgnoreCase";
+            ignoreCaseCheckBox.UseVisualStyleBackColor = true;
+            ignoreCaseCheckBox.CheckedChanged += ignoreCaseCheckBox_CheckedChanged;
             // 
             // panelReplacement
             // 
@@ -188,5 +202,6 @@ namespace RegexRename
         private Panel panelRegexPattern;
         private Panel panelReplacement;
         private Panel panelLvFiles;
+        private CheckBox ignoreCaseCheckBox;
     }
 }
